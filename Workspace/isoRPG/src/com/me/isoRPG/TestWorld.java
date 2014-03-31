@@ -1,5 +1,8 @@
 package com.me.isoRPG;
 
+import physicalObject.Enemy;
+import physicalObject.Player;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -93,7 +96,7 @@ public class TestWorld extends DefaultScreen implements InputProcessor {
 	@Override
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
-		player.input(keycode, enemy);
+		//player.input(keycode, enemy); bugging out.
 		return false;
 	}
 
