@@ -32,21 +32,27 @@ public abstract class Character extends Entity {
 	public float totalMovement;
 	
 	//Constructors for creating a character instance
-	Character () {
+	public Character () {
 		name = new String("Box");
 		totalHealth = currentHealth = baseHealth = 1;
 		totalMovement = baseMovement = 0;
 		
 	}
 	
-	Character(int x, int y, Model newModel, String newName, int newHealth) {
+	public Character(int x, int y, Model newModel, String newName, int newHealth) {
 		super(x,y,newModel);
 		name = new String(newName);
 		totalHealth = currentHealth = baseHealth = newHealth;
 		totalMovement = baseMovement = 0;
 	}
 	
-	private void setMovement(float newSpeed) {
+	public Character(int x, int y)
+	{
+		super(x,y);
+		
+	}
+	
+	public void setMovement(float newSpeed) {
 		totalMovement = baseMovement = newSpeed;
 	}
 

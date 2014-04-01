@@ -1,5 +1,7 @@
 package com.me.isoRPG;
 
+import physicalObject.Entity;
+import physicalObject.Character;
 import physicalObject.Enemy;
 import physicalObject.Player;
 
@@ -23,8 +25,6 @@ public class TestWorld extends DefaultScreen implements InputProcessor {
 	
 	public PerspectiveCamera cam;
 	public ModelBatch modelBatch;
-	public Model model;
-	public ModelInstance instance;
 	
 	public Enemy enemy;
 	public Player player;
@@ -37,7 +37,7 @@ public class TestWorld extends DefaultScreen implements InputProcessor {
 		environment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f));
 		
 		player = new Player();
-		enemy = new Enemy();
+		enemy = new Enemy(15,0);
 		
 		modelBatch = new ModelBatch();
 		
@@ -46,11 +46,13 @@ public class TestWorld extends DefaultScreen implements InputProcessor {
 		
 		//initialize camera
 		cam = new PerspectiveCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		cam.position.set(10f,10f,10f);
-		cam.lookAt(0,0,0);
+		//Vector3 camOffset = new Vector3(20,20,20);
+		cam.position.set(60f,60f,60f);
+		cam.lookAt(player.getPosition());
 		cam.near = 0.1f;
-		cam.far = 300f;
+		cam.far = 3000f;
 		cam.update();
+		
 		
 		// render init stuff
 		Gdx.gl.glClearColor(0, 0, 0, 0);
@@ -58,7 +60,7 @@ public class TestWorld extends DefaultScreen implements InputProcessor {
 	
 	public void render(float delta) {
 		// TODO Auto-generated method stub.
-		
+		cam.update();
 		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		// render
@@ -67,6 +69,7 @@ public class TestWorld extends DefaultScreen implements InputProcessor {
 		
 		modelBatch.begin(cam);
 		modelBatch.render(player.instance, environment);
+		modelBatch.render(enemy.instance,  environment);
 		modelBatch.end();
 	}
 
@@ -90,13 +93,14 @@ public class TestWorld extends DefaultScreen implements InputProcessor {
 	}
 
 	public void dispose() {
-		model.dispose();
 	}
 
 	@Override
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
 		//player.input(keycode, enemy); bugging out.
+		
+		
 		return false;
 	}
 

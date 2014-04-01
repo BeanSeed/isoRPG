@@ -15,10 +15,12 @@ public class Entity {
 	private static ModelBuilder modelBuilder = new ModelBuilder();
 	
 	//Entities have models, this is what they look like in the game
-	private Model model;
+	protected Model model;
 	//Entities have an model instance
 	//A model instance is the description of where the model physically resides in the game
 	public ModelInstance instance;
+	
+	public Vector3 position = new Vector3(0,0,0);
 	
 	//Constructors with a bunch of different overloads
 	public Entity() {
@@ -35,26 +37,31 @@ public class Entity {
 				new Material(ColorAttribute.createDiffuse(Color.BLUE)),
 				Usage.Position | Usage.Normal);
 		instance = new ModelInstance(model);
-		instance.transform.setToTranslation(x, y, 0);
+		position.set(x,y,0);
+		instance.transform.setToTranslation(position);
 	}	
 	public Entity(int x, int y, Model newModel)
 	{
 		initModel(newModel);
-		instance.transform.setToTranslation(x, y, 0);
+		position.set(x,y,0);
+		instance.transform.setToTranslation(position);
 		
 	}
 	public Entity(Vector2 vec, Model newModel)
 	{
 		initModel(newModel);
-		instance.transform.setToTranslation(vec.x,vec.y,0);
+		position.set(vec.x,vec.y,0);
+		instance.transform.setToTranslation(position);
 	}
 	public Entity(Vector3 vec, Model newModel) {
 		initModel(newModel);
-		instance.transform.setToTranslation(vec);
+		position.set(vec);
+		instance.transform.setToTranslation(position);
 	}
 	public Entity(int x, int y, int z, Model newModel) {
 		initModel(newModel);
-		instance.transform.setToTranslation(x, y, z);
+		position.set(x,y,z);
+		instance.transform.setToTranslation(position);
 	}
 	
 	//Stuff to change the variables
@@ -68,5 +75,16 @@ public class Entity {
 	private void setModel(Model newModel) {
 		model = newModel;
 		instance = new ModelInstance(model);
+	}
+	
+	protected void setModel(Color color) {
+		model = modelBuilder.createBox(5f, 5f, 5f,
+				new Material(ColorAttribute.createDiffuse(Color.BLUE)),
+				Usage.Position | Usage.Normal);
+		instance = new ModelInstance(model);
+	}
+	public Vector3 getPosition() {
+		
+		return this.position;
 	}
 }
