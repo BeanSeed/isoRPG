@@ -20,7 +20,7 @@ public class TitleScreen extends DefaultScreen implements
 	private Sprite[] sprite = new Sprite[3];
 	private boolean killScreen = false;
 
-	public TitleScreen(Game game) {
+	public            TitleScreen(Game game) {
 		super(game);
 		
 		Gdx.input.setCatchBackKey(true);
